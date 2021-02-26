@@ -1,9 +1,12 @@
 package io.michimpunkt.jdacp;
 
-public abstract class SubCommand extends CommandImpl {
+public class SubCommand extends CommandImpl {
 
-    public SubCommand(String name) {
-        super(name);
+    private final Command parent;
+
+    public SubCommand(String name, CommandConsumer consumer, Command parent) {
+        super(name, consumer);
+        this.parent = parent;
     }
 
 }
