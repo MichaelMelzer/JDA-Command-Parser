@@ -11,6 +11,6 @@ public interface CommandConsumer<V extends GenericEvent> {
      * @param event The event
      * @throws IllegalArgumentException
      */
-    public void handleCommand(V event) throws IllegalArgumentException;
+    public void handleCommand(String[] rawArgs, String[] displayArgs, V event) throws IllegalArgumentException;
 
 }

@@ -20,6 +20,10 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
     private CommandConsumer<V> consumer;
     private Permission minimumPermission;
 
+    public CommandImpl(String name) {
+        this(name, null);
+    }
+
     public CommandImpl(String name, CommandConsumer<V> consumer) {
         this.name = name;
         this.consumer = consumer;
@@ -50,6 +54,11 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
         this.usage = usage;
     }
 
+    @Override
+    public List<SubCommand> getSubCommands() {
+        return subCommands;
+    }
+
     /**
      * @see #CommandImpl(String, CommandConsumer)
      *
@@ -66,13 +75,23 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
      * Returns the handler (can be utilized as builder pattern).
      *
      * @param name The name of the sub command
+     * @param usage Correct usage of the command
      * @param consumer The parent command (builder pattern)
      * @return
      */
-    public CommandImpl addSubCommand(String name, CommandConsumer consumer) {
-        addSubCommand(new SubCommand(name, consumer, this));
-        return this;
+    public CommandImpl addSubCommand(String name, String usage, CommandConsumer<V> consumer) {
+        SubCommand add = new SubCommand(name, consumer, this);
+        add.setUsage(usage);
+        return addSubCommand(add);
     }
+
+    /**
+     * @see #addSubCommand(String, String, CommandConsumer)
+     */
+    public CommandImpl addSubCommand(String name, CommandConsumer<V> consumer) {
+        return addSubCommand(name, null, consumer);
+    }
+
 
     /**
      * Removes a sub command from the handler.

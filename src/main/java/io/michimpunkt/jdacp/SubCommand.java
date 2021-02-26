@@ -1,6 +1,8 @@
 package io.michimpunkt.jdacp;
 
-public class SubCommand extends CommandImpl {
+import net.dv8tion.jda.api.events.GenericEvent;
+
+public class SubCommand<V extends GenericEvent> extends CommandImpl<V> {
 
     private final Command parent;
 
