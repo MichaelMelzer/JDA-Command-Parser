@@ -21,15 +21,15 @@ public class CommandHandler extends ListenerAdapter {
     private String noPermissions;
 
     /**
-     * @see CommandHandler(String)
+     * A command handler can be setup so that it will only listen to a certain cue phrase. This is optional tho.
+     * If the handler does not have a cue, commands will always be triggered, if they match all other requirements.
      */
     public CommandHandler() {
         this(null, "You don't have enough permissions!");
     }
 
     /**
-     * A command handler can be setup so that it will only listen to a certain cue phrase. This is optional tho.
-     * If the handler does not have a cue, commands will always be triggered, if they match all other requirements.
+     * @see CommandHandler
      *
      * @param defaultCue The default cue which the command will listen to
      * @param noPermissions The message to be displayed if a member doesn't have enough permissions

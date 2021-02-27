@@ -47,8 +47,6 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
     /**
      * Commands can have an optional Usage parameter. This will be sent to the user, if their input is faulty.
      * User input is faulty, if {@link CommandConsumer#handleCommand} throws an {@link IllegalArgumentException}
-     *
-     * @return The usage of this command
      */
     public void setUsage(@Nullable String usage) {
         this.usage = usage;
