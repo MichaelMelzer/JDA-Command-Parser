@@ -92,7 +92,6 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
         return addSubCommand(name, null, consumer);
     }
 
-
     /**
      * Removes a sub command from the handler.
      *
