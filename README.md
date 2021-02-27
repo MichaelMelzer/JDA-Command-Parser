@@ -86,8 +86,8 @@ You can specify a minimuim permission level a Member has to have in order to exe
 	jdaBuilder.addEventListeners(complicatedHandler);
 
 This will result in two Guild Commands:
-"!bot feed me cheese" -> "@MichiMPunkte is feeding on some cheese"
-"!bot feed you bits" -> "That's some yummy bits!"
+- "!bot feed me cheese" -> "@MichiMPunkte is feeding on some cheese"
+- "!bot feed you bits" -> "That's some yummy bits!"
 
 Where:
 - !bot = cue words for the handler
