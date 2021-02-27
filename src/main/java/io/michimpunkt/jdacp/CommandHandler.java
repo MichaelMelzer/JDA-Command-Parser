@@ -17,7 +17,7 @@ public class CommandHandler extends ListenerAdapter {
 
     @Nullable
     private String defaultCue;
-    private List<Command> commands = new ArrayList<>();
+    private List<Command<? extends GenericEvent>> commands = new ArrayList<>();
     private String noPermissions;
 
     /**
@@ -34,7 +34,7 @@ public class CommandHandler extends ListenerAdapter {
      * @param defaultCue The default cue which the command will listen to
      * @param noPermissions The message to be displayed if a member doesn't have enough permissions
      */
-    public CommandHandler(String defaultCue, String noPermissions) {
+    public CommandHandler(@Nullable  String defaultCue, String noPermissions) {
         this.defaultCue = defaultCue;
         this.noPermissions = noPermissions;
     }
@@ -44,7 +44,7 @@ public class CommandHandler extends ListenerAdapter {
      * @param command The command to be added to the handler
      * @return The same handler (builder pattern)
      */
-    public CommandHandler addCommand(Command command) {
+    public CommandHandler addCommand(Command<? extends GenericEvent> command) {
         commands.add(command);
         return this;
     }
@@ -64,10 +64,11 @@ public class CommandHandler extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        // commands.stream().filter(command -> command instanceof  )
+        commands.stream().filter(command -> command instanceof  GenericCommand)
+                .forEach(command -> handleCommand(command, event, event.getMessage()));
     }
 
-    private void handleCommand(Command command, @NotNull GenericEvent event, Message message) {
+    private void handleCommand(Command<? extends GenericEvent> command, @NotNull GenericEvent event, Message message) {
         String[] rawArgs = message.getContentRaw().split(" ");
         String[] displayArgs = message.getContentDisplay().split(" ");
 
@@ -91,7 +92,7 @@ public class CommandHandler extends ListenerAdapter {
         while (!subCommand.getSubCommands().isEmpty() && rawArgs.length > 1) {
             for (Object o : subCommand.getSubCommands()) {
                 // not sure why this is necessary
-                SubCommand subSubCommand = (SubCommand) o;
+                SubCommand<? extends GenericEvent> subSubCommand = (SubCommand<? extends GenericEvent>) o;
 
                 if (subSubCommand.getCommand().equalsIgnoreCase(rawArgs[1])) {
                     subCommand = subSubCommand;

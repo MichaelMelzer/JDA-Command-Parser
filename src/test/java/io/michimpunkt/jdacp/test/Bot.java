@@ -1,6 +1,7 @@
 package io.michimpunkt.jdacp.test;
 
 import io.michimpunkt.jdacp.CommandHandler;
+import io.michimpunkt.jdacp.GenericCommand;
 import io.michimpunkt.jdacp.GuildCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -19,7 +20,7 @@ public class Bot {
         // just a ping handler
         CommandHandler pingHandler = new CommandHandler();
         pingHandler.addCommand(
-            new GuildCommand("!ping", (rawArgs, displayArgs, event) -> {
+            new GenericCommand("!ping", (rawArgs, displayArgs, event) -> {
                 event.getChannel().sendMessage("Pong!").queue();
             })
         );
