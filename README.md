@@ -15,13 +15,16 @@ Uses/Requires [Java Discord API](https://github.com/DV8FromTheWorld/JDA)
 - PrivateCommand: A command that only listens to chat messages in PMs
 - SubCommand: A command that can be nested underneath other commands, including subcommands
 
+
 **Why are there three different types of commands?**
 
 Basically, JDA has three different types of commands itself, so this structure was adopted. Also, Generic JDA Commands are kind of sketchy, as they combine two entirely different MessageChannel types. Most Discord bots differentiate between Guild Commands and Private Commands anyways.
 
+
 **Cues:**
 
 A Command Manager can have an optional cue phrase, so that commands only trigger if a message is predicated by that cue. A cue example might be "!bot", which in turn means that a command might look like "!bot ping", but you only need a "ping" Command
+
 
 **Args:**
 
@@ -30,9 +33,11 @@ The lambda expressions pass on two String arrays and the MessageReceivedEvent it
 - displayArgs: Raw arguments for easy access, taken from Message#getContentDisplay
 - event: Depending on the type of Command, either the corresponding MessageReceivedEvent, GuildMessageReceivedEvent or PrivateMessageReceivedEvent
 
+
 **Illegal Arguments:**
 
 JDA-CP supports illegal arguments. You can throw an IllegalArgumentException within a Command Consumer to fetch faulty user input. The user will receive a text reply informing them about the mistake, if a Usage has been specified.
+
 
 **Permissions:**
 
@@ -80,17 +85,11 @@ You can specify a minimuim permission level a Member has to have in order to exe
 	complicatedHandler.addCommand(feedCommand);  
 	jdaBuilder.addEventListeners(complicatedHandler);
 This will result in two Guild Commands:
-
 "!bot feed me cheese" -> "@MichiMPunkte is feeding on some cheese"
-
 "!bot feed you bits" -> "That's some yummy bits!"
 
 Where:
-
 !bot = cue words for the handler
-
 feed = the main command
-
 me/you = two seperate SubCommands of feed
-
 rawArgs[] = the arguments of the SubCommand
