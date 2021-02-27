@@ -75,7 +75,7 @@ You can specify a minimuim permission level a Member has to have in order to exe
 	});  
 	  
 	feedCommand.addSubCommand("you", "Usage: !bot feed you <food>", (rawArgs, displayArgs, event) -> {  
-		// we need exactly one argument
+	    // we need exactly one argument
 	    if (rawArgs.length != 1) throw new IllegalArgumentException(); 
 	    
 	    // feeds something to the bot   
@@ -84,12 +84,13 @@ You can specify a minimuim permission level a Member has to have in order to exe
 	  
 	complicatedHandler.addCommand(feedCommand);  
 	jdaBuilder.addEventListeners(complicatedHandler);
+
 This will result in two Guild Commands:
 "!bot feed me cheese" -> "@MichiMPunkte is feeding on some cheese"
 "!bot feed you bits" -> "That's some yummy bits!"
 
 Where:
-!bot = cue words for the handler
-feed = the main command
-me/you = two seperate SubCommands of feed
-rawArgs[] = the arguments of the SubCommand
+- !bot = cue words for the handler
+- feed = the main command
+- me/you = two seperate SubCommands of feed
+- rawArgs[] = the arguments of the SubCommand
