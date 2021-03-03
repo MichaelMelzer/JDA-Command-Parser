@@ -120,6 +120,8 @@ public class CommandHandler extends ListenerAdapter {
                 if (subCommand.getUsage() != null) {
                     message.getChannel().sendMessage(subCommand.getUsage()).queue();
                 }
+            } catch (Exception e) {
+                message.getChannel().sendMessage("Error executing command!");
             }
         } else {
             // member does not have permissions
