@@ -117,7 +117,9 @@ public class CommandHandler extends ListenerAdapter {
                 subCommand.getConsumer().handleCommand(rawArgs, displayArgs, event);
             } catch (IllegalArgumentException e) {
                 // easily handle illegal arguments
-                if (subCommand.getUsage() != null) {
+                if (e.getMessage() != null) {
+                    message.getChannel().sendMessage(e.getMessage()).queue();
+                } else if (subCommand.getUsage() != null) {
                     message.getChannel().sendMessage(subCommand.getUsage()).queue();
                 }
             } catch (Exception e) {
