@@ -127,7 +127,7 @@ public class CommandHandler extends ListenerAdapter {
             }
         } else {
             // member does not have permissions
-            message.getChannel().sendMessage(noPermissions);
+            message.getChannel().sendMessage(noPermissions).queue();
         }
     }
 
