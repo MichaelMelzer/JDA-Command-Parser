@@ -128,6 +128,14 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
     }
 
     /**
+     * @see #getMinimumPermissions()
+     * @param minimumPermission The new minimum permission
+     */
+    public void setMinimumPermission(Permission minimumPermission) {
+        this.minimumPermission = minimumPermission;
+    }
+
+    /**
      * @param event The event
      * @return Whether or not a event can be handled, based on permissions
      */

@@ -1,0 +1,8 @@
+io\michimpunkt\jdacp\GuildCommand.class
+io\michimpunkt\jdacp\CommandConsumer.class
+io\michimpunkt\jdacp\Command.class
+io\michimpunkt\jdacp\CommandHandler.class
+io\michimpunkt\jdacp\SubCommand.class
+io\michimpunkt\jdacp\PrivateCommand.class
+io\michimpunkt\jdacp\GenericCommand.class
+io\michimpunkt\jdacp\CommandImpl.class
