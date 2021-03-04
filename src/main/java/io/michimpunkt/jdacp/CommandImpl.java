@@ -17,16 +17,31 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
     @Nullable
     private String usage;
     private List<SubCommand> subCommands = new ArrayList<>();
+    @Nullable
     private CommandConsumer<V> consumer;
+    @Nullable
     private Permission minimumPermission;
 
     public CommandImpl(String name) {
-        this(name, null);
+        this.name = name;
     }
 
     public CommandImpl(String name, CommandConsumer<V> consumer) {
         this.name = name;
         this.consumer = consumer;
+    }
+
+    public CommandImpl(String name, @Nullable String usage, CommandConsumer<V> consumer) {
+        this.name = name;
+        this.usage = usage;
+        this.consumer = consumer;
+    }
+
+    public CommandImpl(String name, @Nullable String usage, CommandConsumer<V> consumer, Permission minimumPermission) {
+        this.name = name;
+        this.usage = usage;
+        this.consumer = consumer;
+        this.minimumPermission = minimumPermission;
     }
 
     @Override
@@ -133,6 +148,14 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
      */
     public void setMinimumPermission(Permission minimumPermission) {
         this.minimumPermission = minimumPermission;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Permission getMinimumPermission() {
+        return minimumPermission;
     }
 
     /**
