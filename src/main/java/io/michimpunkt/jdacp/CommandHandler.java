@@ -1,8 +1,6 @@
 package io.michimpunkt.jdacp;
 
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -17,7 +15,7 @@ public class CommandHandler extends ListenerAdapter {
 
     @Nullable
     private String defaultCue;
-    private List<Command<? extends GenericEvent>> commands = new ArrayList<>();
+    private final List<Command<? extends GenericEvent>> commands = new ArrayList<>();
     private String noPermissions;
 
     /**
@@ -53,20 +51,23 @@ public class CommandHandler extends ListenerAdapter {
         return this;
     }
 
+    @Nullable
     public String getDefaultCue() {
         return defaultCue;
     }
 
-    public void setDefaultCue(String defaultCue) {
+    public CommandHandler setDefaultCue(@Nullable String defaultCue) {
         this.defaultCue = defaultCue;
+        return this;
     }
 
     public String getNoPermissions() {
         return noPermissions;
     }
 
-    public void setNoPermissions(String noPermissions) {
+    public CommandHandler setNoPermissions(String noPermissions) {
         this.noPermissions = noPermissions;
+        return this;
     }
 
     @Override
@@ -134,7 +135,7 @@ public class CommandHandler extends ListenerAdapter {
 
 
         // process command
-        if (subCommand == null || subCommand.getConsumer() == null || !subCommand.getCommand().equalsIgnoreCase(rawArgs[0])) {
+        if (subCommand.getConsumer() == null || !subCommand.getCommand().equalsIgnoreCase(rawArgs[0])) {
             // no command matches
             return;
         }
@@ -151,7 +152,7 @@ public class CommandHandler extends ListenerAdapter {
                     message.getChannel().sendMessage(subCommand.getUsage()).queue();
                 }
             } catch (Exception e) {
-                message.getChannel().sendMessage("Error executing command!");
+                message.getChannel().sendMessage("Error executing command!").queue();
                 e.printStackTrace();
             }
         } else {
