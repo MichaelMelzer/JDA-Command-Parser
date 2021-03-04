@@ -1,20 +1,19 @@
 package io.michimpunkt.jdacp;
 
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.GenericEvent;
 
 import java.util.List;
 
 public interface Command<V extends GenericEvent> {
 
-    public String getCommand();
+    String getCommand();
 
-    public String getUsage();
+    String getUsage();
 
-    public List<SubCommand> getSubCommands();
+    List<SubCommand> getSubCommands();
 
-    public CommandConsumer<V> getConsumer();
+    CommandConsumer<V> getConsumer();
 
-    public boolean hasPermission(V event);
+    boolean hasPermission(V event);
 
 }
