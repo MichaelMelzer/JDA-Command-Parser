@@ -16,7 +16,7 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
     private final String name;
     @Nullable
     private String usage;
-    private List<SubCommand> subCommands = new ArrayList<>();
+    private final List<SubCommand> subCommands = new ArrayList<>();
     @Nullable
     private CommandConsumer<V> consumer;
     @Nullable
@@ -26,18 +26,18 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
         this.name = name;
     }
 
-    public CommandImpl(String name, CommandConsumer<V> consumer) {
+    public CommandImpl(String name, @Nullable CommandConsumer<V> consumer) {
         this.name = name;
         this.consumer = consumer;
     }
 
-    public CommandImpl(String name, @Nullable String usage, CommandConsumer<V> consumer) {
+    public CommandImpl(String name, @Nullable String usage, @Nullable CommandConsumer<V> consumer) {
         this.name = name;
         this.usage = usage;
         this.consumer = consumer;
     }
 
-    public CommandImpl(String name, @Nullable String usage, CommandConsumer<V> consumer, Permission minimumPermission) {
+    public CommandImpl(String name, @Nullable String usage, @Nullable CommandConsumer<V> consumer, @Nullable Permission minimumPermission) {
         this.name = name;
         this.usage = usage;
         this.consumer = consumer;
@@ -90,7 +90,7 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
      * @param name The name of the sub command
      * @param usage Correct usage of the command
      * @param consumer The parent command (builder pattern)
-     * @return
+     * @return Returns self (build pattern)
      */
     public CommandImpl addSubCommand(String name, String usage, CommandConsumer<V> consumer) {
         SubCommand add = new SubCommand(name, consumer, this);
@@ -120,7 +120,7 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
      * @return The consumer of this command
      */
     @Override
-    public CommandConsumer<V> getConsumer() {
+    public @Nullable CommandConsumer<V> getConsumer() {
         return consumer;
     }
 
@@ -128,7 +128,7 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
      *
      * @param consumer The consumer to be set
      */
-    public void setConsumer(CommandConsumer<V> consumer) {
+    public void setConsumer(@Nullable CommandConsumer<V> consumer) {
         this.consumer = consumer;
     }
 
@@ -146,7 +146,7 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
      * @see #getMinimumPermissions()
      * @param minimumPermission The new minimum permission
      */
-    public void setMinimumPermission(Permission minimumPermission) {
+    public void setMinimumPermission(@Nullable Permission minimumPermission) {
         this.minimumPermission = minimumPermission;
     }
 
@@ -154,6 +154,7 @@ public abstract class CommandImpl<V extends GenericEvent> implements Command<V> 
         return name;
     }
 
+    @Nullable
     public Permission getMinimumPermission() {
         return minimumPermission;
     }
