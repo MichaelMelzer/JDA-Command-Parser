@@ -9,8 +9,8 @@ public interface CommandConsumer<V extends GenericEvent> {
      * Can throw an exception. If this is thrown, the user will receive a usage message if specified
      *
      * @param event The event
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException Consuimers can throw an {@link IllegalArgumentException} if a user supplies faulty input
      */
-    public void handleCommand(String[] rawArgs, String[] displayArgs, V event) throws IllegalArgumentException;
+    void handleCommand(String[] rawArgs, String[] displayArgs, V event) throws IllegalArgumentException;
 
 }
