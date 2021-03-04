@@ -28,6 +28,10 @@ public class CommandHandler extends ListenerAdapter {
         this(null, "You don't have enough permissions!");
     }
 
+    public CommandHandler(@Nullable String defaultCue) {
+        this(defaultCue, "You don't have enough permissions!");
+    }
+
     /**
      * @see CommandHandler
      *
@@ -49,6 +53,30 @@ public class CommandHandler extends ListenerAdapter {
         return this;
     }
 
+    public String getDefaultCue() {
+        return defaultCue;
+    }
+
+    public void setDefaultCue(String defaultCue) {
+        this.defaultCue = defaultCue;
+    }
+
+    public String getNoPermissions() {
+        return noPermissions;
+    }
+
+    public void setNoPermissions(String noPermissions) {
+        this.noPermissions = noPermissions;
+    }
+
+    @Override
+    public String toString() {
+        return "CommandHandler{" +
+                "defaultCue='" + defaultCue + '\'' +
+                ", commands=" + commands +
+                ", noPermissions='" + noPermissions + '\'' +
+                '}';
+    }
 
     @Override
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
@@ -117,13 +145,14 @@ public class CommandHandler extends ListenerAdapter {
                 subCommand.getConsumer().handleCommand(rawArgs, displayArgs, event);
             } catch (IllegalArgumentException e) {
                 // easily handle illegal arguments
-                if (e.getMessage() != null) {
+                if (e.getMessage() != null && !e.getMessage().equals("")) {
                     message.getChannel().sendMessage(e.getMessage()).queue();
                 } else if (subCommand.getUsage() != null) {
                     message.getChannel().sendMessage(subCommand.getUsage()).queue();
                 }
             } catch (Exception e) {
                 message.getChannel().sendMessage("Error executing command!");
+                e.printStackTrace();
             }
         } else {
             // member does not have permissions
